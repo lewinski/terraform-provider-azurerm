@@ -113,8 +113,7 @@ func resourceArmDnsZoneCreateUpdate(d *schema.ResourceData, meta interface{}) er
 
 	etag := ""
 	ifNoneMatch := "" // set to empty to allow updates to records after creation
-	_, err := client.CreateOrUpdate(ctx, resGroup, name, parameters, etag, ifNoneMatch)
-	if err != nil {
+	if _, err := client.CreateOrUpdate(ctx, resGroup, name, parameters, etag, ifNoneMatch); err != nil {
 		return fmt.Errorf("Error creating/updating DNS Zone %q (Resource Group %q): %s", name, resGroup, err)
 	}
 

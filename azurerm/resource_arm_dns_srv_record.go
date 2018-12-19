@@ -115,8 +115,7 @@ func resourceArmDnsSrvRecordCreateUpdate(d *schema.ResourceData, meta interface{
 
 	eTag := ""
 	ifNoneMatch := "" // set to empty to allow updates to records after creation
-	_, err = client.CreateOrUpdate(ctx, resGroup, zoneName, name, dns.SRV, parameters, eTag, ifNoneMatch)
-	if err != nil {
+	if _, err := client.CreateOrUpdate(ctx, resGroup, zoneName, name, dns.SRV, parameters, eTag, ifNoneMatch); err != nil {
 		return fmt.Errorf("Error creating/updating DNS SRV Record %q (Zone %q / Resource Group %q): %s", name, zoneName, resGroup, err)
 	}
 
